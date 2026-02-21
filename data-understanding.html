@@ -357,7 +357,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -373,6 +375,24 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">1. Deskripsi Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">2. Sumber Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-dataset">3. Struktur Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemeriksaan-awal-data">4. Pemeriksaan Awal Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-data">Membaca Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-deskriptif">5. Statistik Deskriptif</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas">6. Distribusi Kelas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insight-awal">7. Insight Awal</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -384,6 +404,152 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="data-understanding">
 <h1>Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h1>
+<section id="deskripsi-dataset">
+<h2>1. Deskripsi Dataset<a class="headerlink" href="#deskripsi-dataset" title="Link to this heading">#</a></h2>
+<p>Dataset yang digunakan adalah <strong>Iris Dataset</strong>, salah satu dataset klasik dalam machine learning untuk klasifikasi.</p>
+<p>Dataset ini berisi <strong>150 data bunga Iris</strong> yang terbagi menjadi 3 spesies:</p>
+<ul class="simple">
+<li><p>Setosa</p></li>
+<li><p>Versicolor</p></li>
+<li><p>Virginica</p></li>
+</ul>
+<p>Masing-masing spesies memiliki 50 data.</p>
+<p>Dataset digunakan untuk menganalisis hubungan antar fitur morfologi bunga dan menentukan pola klasifikasi.</p>
+</section>
+<hr class="docutils" />
+<section id="sumber-data">
+<h2>2. Sumber Data<a class="headerlink" href="#sumber-data" title="Link to this heading">#</a></h2>
+<p>Dataset diambil dari file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IRIS</span><span class="o">.</span><span class="n">xlsx</span>
+</pre></div>
+</div>
+<p>Dianalisis menggunakan <strong>Google Colab (Python)</strong> dan divisualisasikan menggunakan:</p>
+<ul class="simple">
+<li><p>Pandas</p></li>
+<li><p>Matplotlib</p></li>
+<li><p>Seaborn</p></li>
+</ul>
+<p>Notebook Colab:
+<a class="reference external" href="https://colab.research.google.com/drive/1jnM-gNHHCcz7odjE_hZMXnBusv0blv-J?usp=sharing">https://colab.research.google.com/drive/1jnM-gNHHCcz7odjE_hZMXnBusv0blv-J?usp=sharing</a></p>
+</section>
+<hr class="docutils" />
+<section id="struktur-dataset">
+<h2>3. Struktur Dataset<a class="headerlink" href="#struktur-dataset" title="Link to this heading">#</a></h2>
+<p>Dataset memiliki 5 atribut:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>No</p></th>
+<th class="head"><p>Atribut</p></th>
+<th class="head"><p>Tipe Data</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>sepal_length</p></td>
+<td><p>float</p></td>
+<td><p>Panjang kelopak bunga (cm)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>sepal_width</p></td>
+<td><p>float</p></td>
+<td><p>Lebar kelopak bunga (cm)</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>petal_length</p></td>
+<td><p>float</p></td>
+<td><p>Panjang mahkota bunga (cm)</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>petal_width</p></td>
+<td><p>float</p></td>
+<td><p>Lebar mahkota bunga (cm)</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>species</p></td>
+<td><p>object</p></td>
+<td><p>Jenis spesies bunga</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Jumlah data:</p>
+<ul class="simple">
+<li><p>150 baris</p></li>
+<li><p>5 kolom</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="pemeriksaan-awal-data">
+<h2>4. Pemeriksaan Awal Data<a class="headerlink" href="#pemeriksaan-awal-data" title="Link to this heading">#</a></h2>
+<section id="membaca-data">
+<h3>Membaca Data<a class="headerlink" href="#membaca-data" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;IRIS.xlsx&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="informasi-dataset">
+<h3>Informasi Dataset<a class="headerlink" href="#informasi-dataset" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Hasil pemeriksaan menunjukkan:</p>
+<ul class="simple">
+<li><p>Tidak terdapat missing value</p></li>
+<li><p>Semua fitur numerik bertipe float</p></li>
+<li><p>Kolom species bertipe kategorikal</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="statistik-deskriptif">
+<h2>5. Statistik Deskriptif<a class="headerlink" href="#statistik-deskriptif" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Ringkasan statistik:</p>
+<ul class="simple">
+<li><p>Rata-rata sepal_length ≈ 5.84 cm</p></li>
+<li><p>Rata-rata petal_length ≈ 3.76 cm</p></li>
+<li><p>Standar deviasi petal_length cukup tinggi</p></li>
+<li><p>Nilai minimum dan maksimum menunjukkan variasi yang signifikan antar spesies</p></li>
+</ul>
+<p>Hal ini mengindikasikan bahwa fitur petal kemungkinan memiliki pengaruh besar dalam proses klasifikasi.</p>
+</section>
+<hr class="docutils" />
+<section id="distribusi-kelas">
+<h2>6. Distribusi Kelas<a class="headerlink" href="#distribusi-kelas" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Hasil menunjukkan:</p>
+<ul class="simple">
+<li><p>Setosa = 50</p></li>
+<li><p>Versicolor = 50</p></li>
+<li><p>Virginica = 50</p></li>
+</ul>
+<p>Dataset dalam kondisi <strong>balanced</strong>, sehingga tidak terjadi ketimpangan kelas.</p>
+</section>
+<hr class="docutils" />
+<section id="insight-awal">
+<h2>7. Insight Awal<a class="headerlink" href="#insight-awal" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Dataset bersih dan siap dianalisis</p></li>
+<li><p>Tidak ada data kosong</p></li>
+<li><p>Distribusi kelas seimbang</p></li>
+<li><p>Fitur petal_length dan petal_width memiliki variasi tinggi</p></li>
+<li><p>Dataset cocok untuk:</p>
+<ul class="simple">
+<li><p>Klasifikasi</p></li>
+<li><p>Clustering</p></li>
+<li><p>Analisis korelasi</p></li>
+</ul>
+</li>
+</ol>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -440,6 +606,31 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">1. Deskripsi Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">2. Sumber Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-dataset">3. Struktur Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemeriksaan-awal-data">4. Pemeriksaan Awal Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-data">Membaca Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-deskriptif">5. Statistik Deskriptif</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas">6. Distribusi Kelas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insight-awal">7. Insight Awal</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
