@@ -1084,6 +1084,175 @@ d(\mathbf{x}, \mathbf{y}) =
 d(\mathbf{p}, \mathbf{q}) =
 \sqrt{\sum (p_i - q_i)^2}
 \]</div>
+<p>Rumus Menghitung Euclidean Distance</p>
+<p><span class="math notranslate nohighlight">\(d(x,y) = \sqrt{\sum (x_i - y_i)^2}\)</span></p>
+<p>Rumus Menghitung Manhattan Distance</p>
+<p><span class="math notranslate nohighlight">\(d(x,y) = \sum |x_i - y_i|\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/College-Distance-Data.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>gender</th>
+      <th>ethnicity</th>
+      <th>score</th>
+      <th>fcollege</th>
+      <th>mcollege</th>
+      <th>home</th>
+      <th>urban</th>
+      <th>unemp</th>
+      <th>wage</th>
+      <th>distance</th>
+      <th>tuition</th>
+      <th>education</th>
+      <th>income</th>
+      <th>region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>male</td>
+      <td>other</td>
+      <td>39.150002</td>
+      <td>yes</td>
+      <td>no</td>
+      <td>yes</td>
+      <td>yes</td>
+      <td>6.2</td>
+      <td>8.09</td>
+      <td>0.2</td>
+      <td>0.88915</td>
+      <td>12</td>
+      <td>high</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>female</td>
+      <td>other</td>
+      <td>48.869999</td>
+      <td>no</td>
+      <td>no</td>
+      <td>yes</td>
+      <td>yes</td>
+      <td>6.2</td>
+      <td>8.09</td>
+      <td>0.2</td>
+      <td>0.88915</td>
+      <td>12</td>
+      <td>low</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>male</td>
+      <td>other</td>
+      <td>48.740002</td>
+      <td>no</td>
+      <td>no</td>
+      <td>yes</td>
+      <td>yes</td>
+      <td>6.2</td>
+      <td>8.09</td>
+      <td>0.2</td>
+      <td>0.88915</td>
+      <td>12</td>
+      <td>low</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>male</td>
+      <td>afam</td>
+      <td>40.400002</td>
+      <td>no</td>
+      <td>no</td>
+      <td>yes</td>
+      <td>yes</td>
+      <td>6.2</td>
+      <td>8.09</td>
+      <td>0.2</td>
+      <td>0.88915</td>
+      <td>12</td>
+      <td>low</td>
+      <td>other</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>female</td>
+      <td>other</td>
+      <td>40.480000</td>
+      <td>no</td>
+      <td>no</td>
+      <td>no</td>
+      <td>yes</td>
+      <td>5.6</td>
+      <td>8.09</td>
+      <td>0.4</td>
+      <td>0.88915</td>
+      <td>13</td>
+      <td>low</td>
+      <td>other</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="s1">&#39;unemp&#39;</span><span class="p">,</span><span class="s1">&#39;wage&#39;</span><span class="p">,</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span><span class="s1">&#39;tuition&#39;</span><span class="p">,</span><span class="s1">&#39;education&#39;</span><span class="p">]</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">]</span>
+
+<span class="n">euclidean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">manhattan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Euclidean Distance:&quot;</span><span class="p">,</span> <span class="n">euclidean</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Manhattan Distance:&quot;</span><span class="p">,</span> <span class="n">manhattan</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Euclidean Distance: 1.7801389300461372
+Manhattan Distance: 3.1299979239702025
+</pre></div>
+</div>
+</div>
+</div>
+<p><img alt="Euclidean Distance" src="_images/Euclidean.png" /></p>
+<p><img alt="Manhattan Distance" src="_images/Manhattan.png" /></p>
 </section>
 </section>
 </section>
@@ -1112,10 +1281,30 @@ d(\mathbf{p}, \mathbf{q}) =
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">statistik</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;Sepal Width&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===== Statistik Sepal Width =====
+Mean         : 3.054
+Mode         : 3.0
+Median       : 3.0
+Dispersion   : 0.142
+Min          : 2.0
+Max          : 4.4
+Missing      : 0
+Count        : 150
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">(</span><span class="n">feature_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">X_norm</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data setelah normalisasi (5 pertama):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data setelah normalisasi:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">X_norm</span><span class="p">[:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">6</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1134,12 +1323,12 @@ d(\mathbf{p}, \mathbf{q}) =
 </section>
 <section id="euclidean-distance">
 <h3>Euclidean Distance<a class="headerlink" href="#euclidean-distance" title="Link to this heading">#</a></h3>
-<p><img alt="Euclidean Distance" src="_images/Euclidean.png" /></p>
+<p><img alt="Euclidean Distance" src="_images/Euclidean1.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">euclidean_dist</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X_norm</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Euclidean Distance (5x5 pertama):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Euclidean Distance:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">euclidean_dist</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1158,12 +1347,12 @@ d(\mathbf{p}, \mathbf{q}) =
 </section>
 <section id="manhattan-distance">
 <h3>Manhattan Distance<a class="headerlink" href="#manhattan-distance" title="Link to this heading">#</a></h3>
-<p><img alt="Manhattan Distance" src="_images/Manhattan.png" /></p>
+<p><img alt="Manhattan Distance" src="_images/Manhattan1.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">manhattan_dist</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X_norm</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;manhattan&#39;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Manhattan Distance (5x5 pertama):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Manhattan Distance:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">manhattan_dist</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">6</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1187,7 +1376,7 @@ d(\mathbf{p}, \mathbf{q}) =
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cos_sim</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">X_norm</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cosine Similarity (5x5 pertama):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cosine Similarity:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">cos_sim</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">6</span><span class="p">))</span>
 </pre></div>
 </div>
