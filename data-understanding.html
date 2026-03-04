@@ -429,6 +429,10 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-untuk-atribut-campuran">Jarak untuk <strong>Atribut Campuran</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-definisi-tipe-atribut">Persiapan: Definisi Tipe Atribut</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Normalisasi</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-distance">Euclidean Distance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manhattan-distance">Manhattan Distance</a></li>
@@ -1088,6 +1092,33 @@ d(\mathbf{p}, \mathbf{q}) =
 <p><span class="math notranslate nohighlight">\(d(x,y) = \sqrt{\sum (x_i - y_i)^2}\)</span></p>
 <p>Rumus Menghitung Manhattan Distance</p>
 <p><span class="math notranslate nohighlight">\(d(x,y) = \sum |x_i - y_i|\)</span></p>
+</section>
+</section>
+</section>
+<section id="jarak-untuk-atribut-campuran">
+<h3>Jarak untuk <strong>Atribut Campuran</strong><a class="headerlink" href="#jarak-untuk-atribut-campuran" title="Link to this heading">#</a></h3>
+<p><strong>Gower Distance versi manual</strong></p>
+<p>Secara teori:</p>
+<p><span class="math notranslate nohighlight">\(d(i,j) = \frac{\sum_{f=1}^{p} \delta^{(f)}*{ij} ; d^{(f)}*{ij}}
+{\sum_{f=1}^{p} \delta^{(f)}_{ij}}\)</span></p>
+<ul class="simple">
+<li><p>(f) = atribut ke-f</p></li>
+<li><p>(<span class="math notranslate nohighlight">\(\delta^{(f)}_{ij}\)</span>) = bobot (biasanya 1 jika tidak missing)</p></li>
+<li><p>(<span class="math notranslate nohighlight">\(d^{(f)}_{ij}\)</span>) = jarak atribut ke-f</p></li>
+</ul>
+<hr class="docutils" />
+<section id="persiapan-definisi-tipe-atribut">
+<h4>Persiapan: Definisi Tipe Atribut<a class="headerlink" href="#persiapan-definisi-tipe-atribut" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="s1">&#39;unemp&#39;</span><span class="p">,</span><span class="s1">&#39;wage&#39;</span><span class="p">,</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span><span class="s1">&#39;tuition&#39;</span><span class="p">,</span><span class="s1">&#39;education&#39;</span><span class="p">]</span>
+<span class="n">binary_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span><span class="s1">&#39;ethnicity&#39;</span><span class="p">,</span><span class="s1">&#39;fcollege&#39;</span><span class="p">,</span><span class="s1">&#39;mcollege&#39;</span><span class="p">,</span><span class="s1">&#39;home&#39;</span><span class="p">,</span><span class="s1">&#39;urban&#39;</span><span class="p">]</span>
+<span class="n">ordinal_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;income&#39;</span><span class="p">]</span>
+<span class="n">nominal_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -1228,6 +1259,33 @@ d(\mathbf{p}, \mathbf{q}) =
   </tbody>
 </table>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah data (observasi):&quot;</span><span class="p">,</span> <span class="n">n_data</span><span class="p">)</span>
+
+<span class="n">df_features</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="n">n_features</span> <span class="o">=</span> <span class="n">df_features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah fitur:&quot;</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah kolom total:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">n_class_income</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;income&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah class (income):&quot;</span><span class="p">,</span> <span class="n">n_class_income</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Class:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;income&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah data (observasi): 4739
+Jumlah fitur: 15
+Jumlah kolom total: 16
+Jumlah class (income): 2
+Class: [&#39;high&#39; &#39;low&#39;]
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1410,7 +1468,6 @@ Numerik - Manhattan: 3.1299979239702025
 </div>
 </div>
 </div>
-</section>
 </section>
 </section>
 <section id="id6">
@@ -1662,6 +1719,10 @@ Count        : 150
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean">Euclidean</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-untuk-atribut-campuran">Jarak untuk <strong>Atribut Campuran</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-definisi-tipe-atribut">Persiapan: Definisi Tipe Atribut</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Normalisasi</a></li>
