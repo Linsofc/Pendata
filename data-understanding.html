@@ -1231,28 +1231,185 @@ d(\mathbf{p}, \mathbf{q}) =
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="s1">&#39;unemp&#39;</span><span class="p">,</span><span class="s1">&#39;wage&#39;</span><span class="p">,</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span><span class="s1">&#39;tuition&#39;</span><span class="p">,</span><span class="s1">&#39;education&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Numerik</span>
+<span class="n">num_cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="s1">&#39;unemp&#39;</span><span class="p">,</span> <span class="s1">&#39;wage&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;distance&#39;</span><span class="p">,</span> <span class="s1">&#39;tuition&#39;</span><span class="p">,</span> <span class="s1">&#39;education&#39;</span>
+<span class="p">]</span>
 
-<span class="n">a</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">]</span>
+<span class="c1"># Kategorikal Biner</span>
+<span class="n">binary_cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;ethnicity&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;fcollege&#39;</span><span class="p">,</span> <span class="s1">&#39;mcollege&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;home&#39;</span><span class="p">,</span> <span class="s1">&#39;urban&#39;</span>
+<span class="p">]</span>
 
-<span class="n">euclidean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">manhattan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">))</span>
+<span class="c1"># Kategorikal Ordinal</span>
+<span class="n">ordinal_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;income&#39;</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Euclidean Distance:&quot;</span><span class="p">,</span> <span class="n">euclidean</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Manhattan Distance:&quot;</span><span class="p">,</span> <span class="n">manhattan</span><span class="p">)</span>
+<span class="c1"># Kategorikal Nominal (non-biner)</span>
+<span class="n">nominal_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span>
+
+<span class="c1"># Gabungan semua kategorikal</span>
+<span class="n">categorical_cols</span> <span class="o">=</span> <span class="n">binary_cols</span> <span class="o">+</span> <span class="n">ordinal_cols</span> <span class="o">+</span> <span class="n">nominal_cols</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_numeric</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">num_cols</span><span class="p">]</span>
+<span class="n">df_binary</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">binary_cols</span><span class="p">]</span>
+<span class="n">df_ordinal</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">ordinal_cols</span><span class="p">]</span>
+<span class="n">df_nominal</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">nominal_cols</span><span class="p">]</span>
+<span class="n">df_categorical</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">categorical_cols</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numerik:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_numeric</span><span class="o">.</span><span class="n">head</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Biner:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_binary</span><span class="o">.</span><span class="n">head</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ordinal:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_ordinal</span><span class="o">.</span><span class="n">head</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nominal:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_nominal</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Euclidean Distance: 1.7801389300461372
-Manhattan Distance: 3.1299979239702025
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Numerik:
+       score  unemp  wage  distance  tuition  education
+0  39.150002    6.2  8.09       0.2  0.88915         12
+1  48.869999    6.2  8.09       0.2  0.88915         12
+2  48.740002    6.2  8.09       0.2  0.88915         12
+3  40.400002    6.2  8.09       0.2  0.88915         12
+4  40.480000    5.6  8.09       0.4  0.88915         13 
+
+Biner:
+   gender ethnicity fcollege mcollege home urban
+0    male     other      yes       no  yes   yes
+1  female     other       no       no  yes   yes
+2    male     other       no       no  yes   yes
+3    male      afam       no       no  yes   yes
+4  female     other       no       no   no   yes 
+
+Ordinal:
+  income
+0   high
+1    low
+2    low
+3    low
+4    low 
+
+Nominal:
+  region
+0  other
+1  other
+2  other
+3  other
+4  other
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_binary_encoded</span> <span class="o">=</span> <span class="n">df_binary</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="s1">&#39;unemp&#39;</span><span class="p">,</span><span class="s1">&#39;wage&#39;</span><span class="p">,</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span><span class="s1">&#39;tuition&#39;</span><span class="p">,</span><span class="s1">&#39;education&#39;</span><span class="p">]</span>
+
+<span class="n">a_num</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">b_num</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="n">euclidean_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">a_num</span> <span class="o">-</span> <span class="n">b_num</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">manhattan_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a_num</span> <span class="o">-</span> <span class="n">b_num</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numerik - Euclidean:&quot;</span><span class="p">,</span> <span class="n">euclidean_num</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numerik - Manhattan:&quot;</span><span class="p">,</span> <span class="n">manhattan_num</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Numerik - Euclidean: 1.7801389300461372
+Numerik - Manhattan: 3.1299979239702025
 </pre></div>
 </div>
 </div>
 </div>
 <p><img alt="Euclidean Distance" src="_images/Euclidean.png" /></p>
 <p><img alt="Manhattan Distance" src="_images/Manhattan.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">binary_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span><span class="s1">&#39;ethnicity&#39;</span><span class="p">,</span><span class="s1">&#39;fcollege&#39;</span><span class="p">,</span><span class="s1">&#39;mcollege&#39;</span><span class="p">,</span><span class="s1">&#39;home&#39;</span><span class="p">,</span><span class="s1">&#39;urban&#39;</span><span class="p">]</span>
+
+<span class="n">df_binary</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">binary_cols</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="p">)</span>
+
+<span class="n">a_bin</span> <span class="o">=</span> <span class="n">df_binary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">b_bin</span> <span class="o">=</span> <span class="n">df_binary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="n">hamming_bin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a_bin</span> <span class="o">!=</span> <span class="n">b_bin</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Biner - Hamming Distance:&quot;</span><span class="p">,</span> <span class="n">hamming_bin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Biner - Hamming Distance: 3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">income_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;low&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;middle&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;income_ord&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;income&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">income_map</span><span class="p">)</span>
+
+<span class="n">a_ord</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;income_ord&#39;</span><span class="p">]</span>
+<span class="n">b_ord</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;income_ord&#39;</span><span class="p">]</span>
+
+<span class="n">manhattan_ord</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">a_ord</span> <span class="o">-</span> <span class="n">b_ord</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ordinal (Income) - Manhattan:&quot;</span><span class="p">,</span> <span class="n">manhattan_ord</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ordinal (Income) - Manhattan: 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nominal_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span>
+
+<span class="n">a_nom</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">nominal_cols</span><span class="p">]</span>
+<span class="n">b_nom</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="n">nominal_cols</span><span class="p">]</span>
+
+<span class="n">nominal_dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a_nom</span> <span class="o">!=</span> <span class="n">b_nom</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nominal - Matching Distance:&quot;</span><span class="p">,</span> <span class="n">nominal_dist</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nominal - Matching Distance: 0
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 </section>
