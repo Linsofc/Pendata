@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: My sample book
+title: Linsofc
 author: Saiful Rijal
 logo: photo.png
 copyright: "2026"
@@ -31,3 +31,4 @@ repository:
 html:
     use_issues_button: true
     use_repository_button: true
+    favicon: public/logo.png
