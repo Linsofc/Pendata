@@ -7,6 +7,7 @@ chapters:
 - file: bussiness-understanding
 - file: data-understanding
 - file: wknn
+- file: uts
 # - file: data-preparation
 # - file: modelling
 # - file: deployment

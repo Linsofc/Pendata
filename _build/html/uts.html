@@ -1,0 +1,1189 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Analisa Data Kesuburan Tanah &#8212; Linsofc</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'uts';</script>
+    <link rel="icon" href="_static/logo.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="W-KNN" href="wknn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/photo.png" class="logo__image only-light" alt="Linsofc - Home"/>
+    <script>document.write(`<img src="_static/photo.png" class="logo__image only-dark" alt="Linsofc - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Saiful Rijal 240411100106
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bussiness-understanding.html">Business Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wknn.html">W-KNN</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analisa Data Kesuburan Tanah</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Linsofc/Pendata" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Linsofc/Pendata/issues/new?title=Issue%20on%20page%20%2Futs.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/uts.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Analisa Data Kesuburan Tanah</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Analisa Data Kesuburan Tanah</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lakukan-analisis-data-dengan-menggunakan">1. Lakukan analisis data dengan menggunakan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lakukan-pemrosesan-data-tersebut">2. Lakukan Pemrosesan Data tersebut</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitung-metrik-evaluasi">3. Hitung Metrik Evaluasi</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-klasifikasi-kesuburan-tanah">Dataset Klasifikasi Kesuburan Tanah</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-umum">Deskripsi Umum</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi <code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-fitur">Penjelasan Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ph-tanah">1. <code class="docutils literal notranslate"><span class="pre">pH</span> <span class="pre">Tanah</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-total">2. <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">Total</span> <span class="pre">(%)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-tersedia-ppm">3. <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">Tersedia</span> <span class="pre">(ppm)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-tersedia-meq-100g">4. <code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">Tersedia</span> <span class="pre">(meq/100g)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-organik">5. <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">Organik</span> <span class="pre">(%)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ktk-meq-100g">6. <code class="docutils literal notranslate"><span class="pre">KTK</span> <span class="pre">(meq/100g)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kejenuhan-basa">7. <code class="docutils literal notranslate"><span class="pre">Kejenuhan</span> <span class="pre">Basa</span> <span class="pre">(%)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tekstur-tanah">8. <code class="docutils literal notranslate"><span class="pre">Tekstur</span> <span class="pre">Tanah</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kadar-air">9. <code class="docutils literal notranslate"><span class="pre">Kadar</span> <span class="pre">Air</span> <span class="pre">(%)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bulk-density-g-cm3">10. <code class="docutils literal notranslate"><span class="pre">Bulk</span> <span class="pre">Density</span> <span class="pre">(g/cm³)</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-kelas">Definisi Kelas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas">Distribusi Kelas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-import-library-dan-load-dataset">Langkah 1: Import Library dan Load Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan">Penjelasan:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-pemrosesan-data-preprocessing">Langkah 2: Pemrosesan Data (Preprocessing)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Penjelasan:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-modeling-k-nearest-neighbors-knn">Langkah 3: Modeling K-Nearest Neighbors (KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-algoritma-knn">Penjelasan Algoritma KNN:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penentuan-nilai-k">Penentuan Nilai <span class="math notranslate nohighlight">\(k\)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-evaluasi-model">Langkah 4: Evaluasi Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-metrik">Penjelasan Metrik:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="analisa-data-kesuburan-tanah">
+<h1>Analisa Data Kesuburan Tanah<a class="headerlink" href="#analisa-data-kesuburan-tanah" title="Link to this heading">#</a></h1>
+<section id="lakukan-analisis-data-dengan-menggunakan">
+<h2>1. Lakukan analisis data dengan menggunakan<a class="headerlink" href="#lakukan-analisis-data-dengan-menggunakan" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>K-Nearest Neighbors (KNN)</strong></p></li>
+</ul>
+</section>
+<section id="lakukan-pemrosesan-data-tersebut">
+<h2>2. Lakukan Pemrosesan Data tersebut<a class="headerlink" href="#lakukan-pemrosesan-data-tersebut" title="Link to this heading">#</a></h2>
+</section>
+<section id="hitung-metrik-evaluasi">
+<h2>3. Hitung Metrik Evaluasi<a class="headerlink" href="#hitung-metrik-evaluasi" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrik</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Accuracy</strong></p></td>
+<td><p>Persentase prediksi benar dari total data</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Precision</strong></p></td>
+<td><p>Ketepatan prediksi kelas positif</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Recall</strong></p></td>
+<td><p>Kemampuan mendeteksi seluruh kelas positif</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>F1-Score</strong></p></td>
+<td><p>Harmonic mean antara Precision dan Recall</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="dataset-klasifikasi-kesuburan-tanah">
+<h1>Dataset Klasifikasi Kesuburan Tanah<a class="headerlink" href="#dataset-klasifikasi-kesuburan-tanah" title="Link to this heading">#</a></h1>
+<section id="deskripsi-umum">
+<h2>Deskripsi Umum<a class="headerlink" href="#deskripsi-umum" title="Link to this heading">#</a></h2>
+<p>Dataset berisi <strong>2.000 sampel</strong> data tanah dengan <strong>10 fitur agronomis</strong> dan <strong>1 kolom label</strong> yang membagi kondisi tanah menjadi dua kelas: <strong>Subur</strong> dan <strong>Tidak Subur</strong>. Data mengandung missing values (data hilang).</p>
+</section>
+<hr class="docutils" />
+<section id="informasi-dataset">
+<h2>Informasi <code class="docutils literal notranslate"><span class="pre">Dataset</span></code><a class="headerlink" href="#informasi-dataset" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Atribut</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jumlah Sampel</p></td>
+<td><p>2.000 baris</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jumlah Fitur</p></td>
+<td><p>10 fitur (9 numerik, 1 kategorikal)</p></td>
+</tr>
+<tr class="row-even"><td><p>Jumlah Kelas</p></td>
+<td><p>2 kelas</p></td>
+</tr>
+<tr class="row-odd"><td><p>Target / Label</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Subur</span></code> / <code class="docutils literal notranslate"><span class="pre">Tidak</span> <span class="pre">Subur</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="penjelasan-fitur">
+<h2>Penjelasan Fitur<a class="headerlink" href="#penjelasan-fitur" title="Link to this heading">#</a></h2>
+<section id="ph-tanah">
+<h3>1. <code class="docutils literal notranslate"><span class="pre">pH</span> <span class="pre">Tanah</span></code><a class="headerlink" href="#ph-tanah" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Satuan:</strong> Skala pH (0–14)</p></li>
+<li><p><strong>Deskripsi:</strong> Tingkat keasaman atau kebasaan tanah. pH optimal untuk pertanian berkisar 6,0–7,5.</p></li>
+<li><p><strong>Nilai Subur:</strong> 6,0 – 7,5</p></li>
+<li><p><strong>Nilai Tidak Subur:</strong> 3,5 – 5,4 (asam kuat) atau 7,6 – 9,0 (basa kuat)</p></li>
+</ul>
+</section>
+<section id="n-total">
+<h3>2. <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">Total</span> <span class="pre">(%)</span></code><a class="headerlink" href="#n-total" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Satuan:</strong> Persen (%)</p></li>
+<li><p><strong>Deskripsi:</strong> Kandungan nitrogen total dalam tanah. Nitrogen sangat penting untuk pertumbuhan vegetatif tanaman.</p></li>
+<li><p><strong>Nilai Subur:</strong> 0,21 – 0,50%</p></li>
+<li><p><strong>Nilai Tidak Subur:</strong> 0,01 – 0,20%</p></li>
+</ul>
+</section>
+<section id="p-tersedia-ppm">
+<h3>3. <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">Tersedia</span> <span class="pre">(ppm)</span></code><a class="headerlink" href="#p-tersedia-ppm" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Satuan:</strong> Parts per million (ppm)</p></li>
+<li><p><strong>Deskripsi:</strong> Fosfor tersedia yang dapat diserap tanaman. Fosfor berperan dalam pembentukan akar dan buah.</p></li>
+<li><p><strong>Nilai Subur:</strong> 15 – 60 ppm</p></li>
+<li><p><strong>Nilai Tidak Subur:</strong> 1 – 14 ppm</p></li>
+</ul>
+</section>
+<section id="k-tersedia-meq-100g">
+<h3>4. <code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">Tersedia</span> <span class="pre">(meq/100g)</span></code><a class="headerlink" href="#k-tersedia-meq-100g" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Satuan:</strong> Milliequivalent per 100 gram tanah</p></li>
+<li><p><strong>Deskripsi:</strong> Kalium tersedia dalam tanah. Penting untuk ketahanan tanaman dan proses fotosintesis.</p></li>
+<li><p><strong>Nilai Subur:</strong> 0,30 – 0,80 meq/100g</p></li>
+<li><p><strong>Nilai Tidak Subur:</strong> 0,05 – 0,29 meq/100g</p></li>
+</ul>
+</section>
+<section id="c-organik">
+<h3>5. <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">Organik</span> <span class="pre">(%)</span></code><a class="headerlink" href="#c-organik" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Satuan:</strong> Persen (%)</p></li>
+<li><p><strong>Deskripsi:</strong> Kandungan karbon organik tanah, indikator utama kesuburan dan kesehatan biologi tanah.</p></li>
+<li><p><strong>Nilai Subur:</strong> 2,0 – 5,0%</p></li>
+<li><p><strong>Nilai Tidak Subur:</strong> 0,2 – 1,9%</p></li>
+</ul>
+</section>
+<section id="ktk-meq-100g">
+<h3>6. <code class="docutils literal notranslate"><span class="pre">KTK</span> <span class="pre">(meq/100g)</span></code><a class="headerlink" href="#ktk-meq-100g" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Satuan:</strong> Milliequivalent per 100 gram tanah</p></li>
+<li><p><strong>Deskripsi:</strong> Kapasitas Tukar Kation — kemampuan tanah mengikat dan menyediakan unsur hara bagi tanaman. Semakin tinggi semakin subur.</p></li>
+<li><p><strong>Nilai Subur:</strong> 20 – 45 meq/100g</p></li>
+<li><p><strong>Nilai Tidak Subur:</strong> 5 – 19 meq/100g</p></li>
+</ul>
+</section>
+<section id="kejenuhan-basa">
+<h3>7. <code class="docutils literal notranslate"><span class="pre">Kejenuhan</span> <span class="pre">Basa</span> <span class="pre">(%)</span></code><a class="headerlink" href="#kejenuhan-basa" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Satuan:</strong> Persen (%)</p></li>
+<li><p><strong>Deskripsi:</strong> Persentase kation basa (Ca, Mg, K, Na) dari total KTK. Menggambarkan kualitas kesuburan kimia tanah.</p></li>
+<li><p><strong>Nilai Subur:</strong> 60 – 100%</p></li>
+<li><p><strong>Nilai Tidak Subur:</strong> 10 – 59%</p></li>
+</ul>
+</section>
+<section id="tekstur-tanah">
+<h3>8. <code class="docutils literal notranslate"><span class="pre">Tekstur</span> <span class="pre">Tanah</span></code><a class="headerlink" href="#tekstur-tanah" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Tipe:</strong> Kategorikal</p></li>
+<li><p><strong>Deskripsi:</strong> Komposisi partikel tanah yang memengaruhi drainase, aerasi, dan kemampuan menahan air.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kelas</p></th>
+<th class="head"><p>Tekstur yang Umum</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Subur</strong></p></td>
+<td><p>Lempung, Lempung Berpasir, Lempung Berliat</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Tidak Subur</strong></p></td>
+<td><p>Pasir, Liat, Debu</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="kadar-air">
+<h3>9. <code class="docutils literal notranslate"><span class="pre">Kadar</span> <span class="pre">Air</span> <span class="pre">(%)</span></code><a class="headerlink" href="#kadar-air" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Satuan:</strong> Persen (%)</p></li>
+<li><p><strong>Deskripsi:</strong> Persentase kadar air dalam tanah. Terlalu kering atau terlalu basah sama-sama merugikan pertumbuhan tanaman.</p></li>
+<li><p><strong>Nilai Subur:</strong> 25 – 45%</p></li>
+<li><p><strong>Nilai Tidak Subur:</strong> 5 – 20% (terlalu kering) atau 55 – 75% (terlalu basah)</p></li>
+</ul>
+</section>
+<section id="bulk-density-g-cm3">
+<h3>10. <code class="docutils literal notranslate"><span class="pre">Bulk</span> <span class="pre">Density</span> <span class="pre">(g/cm³)</span></code><a class="headerlink" href="#bulk-density-g-cm3" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Satuan:</strong> Gram per sentimeter kubik</p></li>
+<li><p><strong>Deskripsi:</strong> Kerapatan tanah. Nilai tinggi menandakan tanah padat, aerasi buruk, dan sulit ditembus akar.</p></li>
+<li><p><strong>Nilai Subur:</strong> 0,9 – 1,2 g/cm³</p></li>
+<li><p><strong>Nilai Tidak Subur:</strong> 1,4 – 1,9 g/cm³</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="definisi-kelas">
+<h2>Definisi Kelas<a class="headerlink" href="#definisi-kelas" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Label</p></th>
+<th class="head"><p>Deskripsi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Subur</strong></p></td>
+<td><p>Tanah dengan kondisi fisik, kimia, dan biologi yang optimal untuk pertumbuhan tanaman. Ditandai dengan pH seimbang, unsur hara cukup, tekstur ideal, dan struktur tanah yang baik.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Tidak Subur</strong></p></td>
+<td><p>Tanah yang memiliki satu atau lebih kondisi pembatas seperti pH ekstrem, kekurangan unsur hara, tekstur buruk, kadar air tidak ideal, atau kerapatan tanah tinggi.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="distribusi-kelas">
+<h2>Distribusi Kelas<a class="headerlink" href="#distribusi-kelas" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Subur</span>        <span class="p">:</span> <span class="mf">1.000</span> <span class="n">sampel</span> <span class="p">(</span><span class="mi">50</span><span class="o">%</span><span class="p">)</span>
+<span class="n">Tidak</span> <span class="n">Subur</span>  <span class="p">:</span> <span class="mf">1.000</span> <span class="n">sampel</span> <span class="p">(</span><span class="mi">50</span><span class="o">%</span><span class="p">)</span>
+<span class="n">Total</span>        <span class="p">:</span> <span class="mf">2.000</span> <span class="n">sampel</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-1-import-library-dan-load-dataset">
+<h2>Langkah 1: Import Library dan Load Dataset<a class="headerlink" href="#langkah-1-import-library-dan-load-dataset" title="Link to this heading">#</a></h2>
+<section id="penjelasan">
+<h3>Penjelasan:<a class="headerlink" href="#penjelasan" title="Link to this heading">#</a></h3>
+<p>Pada langkah ini kita memuat semua library Python yang dibutuhkan:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pandas</span></code></strong>: Untuk membaca dan memanipulasi data tabular (DataFrame).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">numpy</span></code></strong>: Untuk operasi numerik dan array.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">math</span></code></strong>: Untuk menghitung akar kuadrat (<span class="math notranslate nohighlight">\(\sqrt{n}\)</span>) dalam penentuan nilai <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sklearn</span></code></strong>: Library machine learning yang menyediakan semua komponen preprocessing dan model KNN.</p></li>
+</ul>
+<p>Dataset dibaca dari file Excel menggunakan <code class="docutils literal notranslate"><span class="pre">pd.read_excel()</span></code>. Kolom <code class="docutils literal notranslate"><span class="pre">ID</span></code> dihapus karena hanya berfungsi sebagai identifikasi baris dan tidak memiliki nilai prediktif.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.impute</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+
+<span class="c1"># ============================================================</span>
+<span class="c1"># Load Dataset</span>
+<span class="c1"># ============================================================</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;data/kesuburan_tanah.xlsx&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="c1"># Hapus kolom ID (hanya nomor urut, tidak relevan untuk prediksi)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">])</span>
+
+<span class="c1"># Tampilkan informasi dasar dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;INFORMASI DATASET&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah Baris    : </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah Kolom    : </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distribusi Kelas:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">5 Baris Pertama Data:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah Missing Values per Kolom:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================================
+INFORMASI DATASET
+==================================================
+Jumlah Baris    : 2000
+Jumlah Kolom    : 11
+Distribusi Kelas:
+Label
+Tidak Subur    1000
+Subur          1000
+
+5 Baris Pertama Data:
+   pH Tanah  N Total (%)  P Tersedia (ppm)  K Tersedia (meq/100g)  C Organik (%)  KTK (meq/100g)  Kejenuhan Basa (%)     Tekstur Tanah  Kadar Air (%)  Bulk Density (g/cm³)        Label
+0      8.93        0.183              5.35                  0.124           0.68            6.18               31.86              Debu          60.49                 1.767  Tidak Subur
+1      6.24        0.420             54.32                  0.554           4.87           33.46               82.77  Lempung Berpasir          35.97                 0.960        Subur
+2      4.82          NaN             13.44                  0.257            NaN           14.79               55.45              Debu          11.48                 1.851  Tidak Subur
+3      7.34        0.269             17.46                  0.542           2.49           35.57               62.09   Lempung Berliat          37.54                 1.017        Subur
+4      3.77        0.144              1.15                  0.106           0.62           18.97               10.85              Liat           6.97                 1.766  Tidak Subur
+
+Jumlah Missing Values per Kolom:
+pH Tanah                   0
+N Total (%)              160
+P Tersedia (ppm)         240
+K Tersedia (meq/100g)    140
+C Organik (%)            200
+KTK (meq/100g)             0
+Kejenuhan Basa (%)         0
+Tekstur Tanah            100
+Kadar Air (%)            180
+Bulk Density (g/cm³)     120
+Label                      0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-2-pemrosesan-data-preprocessing">
+<h2>Langkah 2: Pemrosesan Data (Preprocessing)<a class="headerlink" href="#langkah-2-pemrosesan-data-preprocessing" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Penjelasan:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Preprocessing adalah langkah kritis sebelum meлатih model. Ada tiga sub-langkah utama:</p>
+<p><strong>A. Split Data (80:20)</strong></p>
+<blockquote>
+<div><p>Data dibagi menjadi 80% training dan 20% testing. Parameter <code class="docutils literal notranslate"><span class="pre">stratify=y</span></code> memastikan proporsi kelas <strong>Subur</strong> dan <strong>Tidak Subur</strong> tetap seimbang di kedua set.</p>
+</div></blockquote>
+<p><strong>B. Imputasi Missing Values</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Numerik → Median</strong>: Lebih robust terhadap outlier dibandingkan mean.</p></li>
+<li><p><strong>Tekstur Tanah → Modus</strong>: Mengisi dengan nilai kategori yang paling sering muncul.
+⚠️ Imputasi hanya di-<code class="docutils literal notranslate"><span class="pre">fit</span></code> pada data <strong>training</strong> agar tidak terjadi <em>data leakage</em>.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>C. Encoding Fitur Kategorikal</strong></p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">OneHotEncoder</span></code> mengubah <code class="docutils literal notranslate"><span class="pre">Tekstur</span> <span class="pre">Tanah</span></code> menjadi beberapa kolom biner (0/1). Algoritma KNN tidak bisa memproses teks secara langsung.</p>
+</div></blockquote>
+<p><strong>D. Standardisasi Fitur Numerik</strong></p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> mengubah setiap fitur numerik agar memiliki <strong>mean=0</strong> dan <strong>std=1</strong>. Ini <strong>krusial</strong> untuk KNN karena KNN berbasis perhitungan <strong>jarak Euclidean</strong>. Tanpa scaling, fitur dengan skala besar (misal KTK ~30) akan mendominasi fitur dengan skala kecil (misal N Total ~0.3).</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># A. Pisahkan Fitur (X) dan Target (y), lalu Split Data</span>
+<span class="c1"># ============================================================</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span>
+
+<span class="c1"># Split 80% training, 20% testing. stratify=y menjaga distribusi kelas</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
+<span class="p">)</span>
+
+<span class="c1"># ============================================================</span>
+<span class="c1"># B. Pemrosesan Fitur NUMERIK</span>
+<span class="c1"># ============================================================</span>
+<span class="n">numeric_cols</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="c1"># Imputasi nilai hilang dengan Median</span>
+<span class="n">imputer_num</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
+<span class="n">X_train_num</span> <span class="o">=</span> <span class="n">imputer_num</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>  <span class="c1"># fit + transform pada training</span>
+<span class="n">X_test_num</span>  <span class="o">=</span> <span class="n">imputer_num</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>       <span class="c1"># transform saja pada testing</span>
+
+<span class="c1"># Standarisasi: mean=0, std=1</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_num</span><span class="p">)</span>  <span class="c1"># fit + transform pada training</span>
+<span class="n">X_test_scaled</span>  <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test_num</span><span class="p">)</span>       <span class="c1"># transform saja pada testing</span>
+
+<span class="c1"># ============================================================</span>
+<span class="c1"># C. Pemrosesan Fitur KATEGORIKAL (Tekstur Tanah)</span>
+<span class="c1"># ============================================================</span>
+<span class="n">cat_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Tekstur Tanah&#39;</span><span class="p">]</span>
+
+<span class="c1"># Imputasi nilai hilang dengan Modus</span>
+<span class="n">imputer_cat</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">)</span>
+<span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">imputer_cat</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">cat_cols</span><span class="p">])</span>
+<span class="n">X_test_cat</span>  <span class="o">=</span> <span class="n">imputer_cat</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">cat_cols</span><span class="p">])</span>
+
+<span class="c1"># One-Hot Encoding: ubah kategori teks menjadi kolom biner</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">X_train_encoded</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_cat</span><span class="p">)</span>
+<span class="n">X_test_encoded</span>  <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test_cat</span><span class="p">)</span>
+
+<span class="c1"># ============================================================</span>
+<span class="c1"># D. Gabungkan Semua Fitur</span>
+<span class="c1"># ============================================================</span>
+<span class="n">X_train_final</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">X_train_encoded</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test_final</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X_test_scaled</span><span class="p">,</span>  <span class="n">X_test_encoded</span><span class="p">],</span>  <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HASIL PREPROCESSING&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitur numerik      : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">numeric_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> kolom → diimputasi + discaling&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitur kategorikal  : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cat_cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> kolom → diimputasi + One-Hot Encoded&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total fitur akhir  : </span><span class="si">{</span><span class="n">X_train_final</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> kolom&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data training      : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train_final</span><span class="p">)</span><span class="si">}</span><span class="s2"> baris&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data testing       : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test_final</span><span class="p">)</span><span class="si">}</span><span class="s2"> baris&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================================
+HASIL PREPROCESSING
+==================================================
+Fitur numerik      : 9 kolom → diimputasi + discaling
+Fitur kategorikal  : 1 kolom → diimputasi + One-Hot Encoded
+Total fitur akhir  : 15 kolom
+Data training      : 1600 baris
+Data testing       : 400 baris
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-3-modeling-k-nearest-neighbors-knn">
+<h2>Langkah 3: Modeling K-Nearest Neighbors (KNN)<a class="headerlink" href="#langkah-3-modeling-k-nearest-neighbors-knn" title="Link to this heading">#</a></h2>
+<section id="penjelasan-algoritma-knn">
+<h3>Penjelasan Algoritma KNN:<a class="headerlink" href="#penjelasan-algoritma-knn" title="Link to this heading">#</a></h3>
+<p>KNN adalah algoritma klasifikasi berbasis <strong>instance</strong> yang bekerja dengan prinsip:</p>
+<blockquote>
+<div><p>“Data baru diklasifikasikan berdasarkan mayoritas label dari <span class="math notranslate nohighlight">\(k\)</span> tetangga terdekatnya.”</p>
+</div></blockquote>
+<p>Jarak antar sampel dihitung menggunakan <strong>jarak Euclidean</strong>:
+$<span class="math notranslate nohighlight">\(d(x, y) = \sqrt{\sum_{i=1}^{n}(x_i - y_i)^2}\)</span>$</p>
+</section>
+<section id="penentuan-nilai-k">
+<h3>Penentuan Nilai <span class="math notranslate nohighlight">\(k\)</span>:<a class="headerlink" href="#penentuan-nilai-k" title="Link to this heading">#</a></h3>
+<p>Nilai <span class="math notranslate nohighlight">\(k\)</span> yang digunakan dihitung menggunakan rumus:
+$<span class="math notranslate nohighlight">\(k = \sqrt{n_{train}}\)</span><span class="math notranslate nohighlight">\(
+di mana \)</span>n_{train}<span class="math notranslate nohighlight">\( adalah jumlah data training. Aturan ini adalah pendekatan statistik yang umum digunakan sebagai titik awal. Nilai \)</span>k$ dibuat ganjil untuk menghindari kondisi seri (<em>tie</em>) dalam proses voting.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># Menghitung Nilai k Optimal</span>
+<span class="c1"># ============================================================</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train_final</span><span class="p">)</span>
+<span class="n">k_value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n_samples</span><span class="p">))</span>
+
+<span class="c1"># Pastikan k bernilai ganjil (menghindari tie dalam voting mayoritas)</span>
+<span class="k">if</span> <span class="n">k_value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">k_value</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KONFIGURASI MODEL KNN&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah data training     : </span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;k = akar(</span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2">)         = </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n_samples</span><span class="p">))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;k (dibulatkan, ganjil)   = </span><span class="si">{</span><span class="n">k_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metrik jarak             : Euclidean (default Minkowski p=2)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metode voting            : Majority Vote (uniform)&quot;</span><span class="p">)</span>
+
+<span class="c1"># ============================================================</span>
+<span class="c1"># Melatih Model KNN</span>
+<span class="c1"># ============================================================</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k_value</span><span class="p">)</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_final</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Model KNN Berhasil Dilatih.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================================
+KONFIGURASI MODEL KNN
+==================================================
+Jumlah data training     : 1600
+k = akar(1600)         = 40.00
+k (dibulatkan, ganjil)   = 41
+Metrik jarak             : Euclidean (default Minkowski p=2)
+Metode voting            : Majority Vote (uniform)
+
+Model KNN Berhasil Dilatih.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-4-evaluasi-model">
+<h2>Langkah 4: Evaluasi Model<a class="headerlink" href="#langkah-4-evaluasi-model" title="Link to this heading">#</a></h2>
+<section id="penjelasan-metrik">
+<h3>Penjelasan Metrik:<a class="headerlink" href="#penjelasan-metrik" title="Link to this heading">#</a></h3>
+<p>Setelah model dilatih, kita mengevaluasi performanya pada <strong>data testing</strong> (data yang tidak pernah dilihat model saat training).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrik</p></th>
+<th class="head"><p>Rumus</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Accuracy</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{TP+TN}{TP+TN+FP+FN}\)</span></p></td>
+<td><p>Proporsi prediksi benar dari seluruh data</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Precision</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{TP}{TP+FP}\)</span></p></td>
+<td><p>Dari semua yang diprediksi Subur, berapa yang benar-benar Subur?</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Recall</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{TP}{TP+FN}\)</span></p></td>
+<td><p>Dari semua yang benar-benar Subur, berapa yang berhasil terdeteksi?</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>F1-Score</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{2 \times P \times R}{P+R}\)</span></p></td>
+<td><p>Rata-rata harmonis Precision dan Recall</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Keterangan: <strong>TP</strong> = True Positive, <strong>TN</strong> = True Negative, <strong>FP</strong> = False Positive, <strong>FN</strong> = False Negative</p>
+</section>
+<section id="confusion-matrix">
+<h3>Confusion Matrix:<a class="headerlink" href="#confusion-matrix" title="Link to this heading">#</a></h3>
+<p>Matriks 2×2 yang menunjukkan rincian prediksi model untuk setiap kombinasi label aktual vs label prediksi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># Prediksi pada Data Testing</span>
+<span class="c1"># ============================================================</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_final</span><span class="p">)</span>
+
+<span class="c1"># ============================================================</span>
+<span class="c1"># Perhitungan Metrik Evaluasi</span>
+<span class="c1"># ============================================================</span>
+<span class="n">accuracy</span>  <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Subur&#39;</span><span class="p">)</span>
+<span class="n">recall</span>    <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Subur&#39;</span><span class="p">)</span>
+<span class="n">f1</span>        <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Subur&#39;</span><span class="p">)</span>
+<span class="n">cm</span>        <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Subur&#39;</span><span class="p">,</span> <span class="s1">&#39;Tidak Subur&#39;</span><span class="p">])</span>
+
+<span class="c1"># ============================================================</span>
+<span class="c1"># Tampilkan Hasil</span>
+<span class="c1"># ============================================================</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HASIL METRIK EVALUASI MODEL KNN&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Metrik&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Nilai&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">   Keterangan&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Accuracy&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">&gt;8.4f</span><span class="si">}</span><span class="s2">   Proporsi prediksi benar dari total data&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Precision&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">precision</span><span class="si">:</span><span class="s2">&gt;8.4f</span><span class="si">}</span><span class="s2">   Ketepatan prediksi kelas Subur&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Recall&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">recall</span><span class="si">:</span><span class="s2">&gt;8.4f</span><span class="si">}</span><span class="s2">   Kemampuan mendeteksi seluruh data Subur&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;F1-Score&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">f1</span><span class="si">:</span><span class="s2">&gt;8.4f</span><span class="si">}</span><span class="s2">   Harmonic mean Precision dan Recall&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Confusion Matrix</span>
+<span class="n">TP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Subur diprediksi Subur</span>
+<span class="n">FN</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Subur diprediksi Tidak Subur</span>
+<span class="n">FP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Tidak Subur diprediksi Subur</span>
+<span class="n">TN</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Tidak Subur diprediksi Tidak Subur</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">CONFUSION MATRIX:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;&#39;</span><span class="si">:</span><span class="s2">20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Pred: Subur&#39;</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Pred: T.Subur&#39;</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Aktual: Subur&#39;</span><span class="si">:</span><span class="s2">20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">TP</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">FN</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Aktual: Tidak Subur&#39;</span><span class="si">:</span><span class="s2">20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">FP</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">TN</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Keterangan:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  TP (True Positive)  = </span><span class="si">{</span><span class="n">TP</span><span class="si">}</span><span class="s2">  → Subur benar diprediksi Subur&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  TN (True Negative)  = </span><span class="si">{</span><span class="n">TN</span><span class="si">}</span><span class="s2">  → T.Subur benar diprediksi T.Subur&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  FP (False Positive) = </span><span class="si">{</span><span class="n">FP</span><span class="si">}</span><span class="s2">   → T.Subur salah diprediksi Subur&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  FN (False Negative) = </span><span class="si">{</span><span class="n">FN</span><span class="si">}</span><span class="s2">   → Subur salah diprediksi T.Subur&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================================
+HASIL METRIK EVALUASI MODEL KNN
+==================================================
+Metrik          Nilai   Keterangan
+--------------------------------------------------
+Accuracy       1.0000   Proporsi prediksi benar dari total data
+Precision      1.0000   Ketepatan prediksi kelas Subur
+Recall         1.0000   Kemampuan mendeteksi seluruh data Subur
+F1-Score       1.0000   Harmonic mean Precision dan Recall
+==================================================
+
+CONFUSION MATRIX:
+----------------------------------------
+                      Pred: Subur  Pred: T.Subur
+Aktual: Subur                 200              0
+Aktual: Tidak Subur             0            200
+----------------------------------------
+
+Keterangan:
+  TP (True Positive)  = 200  → Subur benar diprediksi Subur
+  TN (True Negative)  = 200  → T.Subur benar diprediksi T.Subur
+  FP (False Positive) = 0   → T.Subur salah diprediksi Subur
+  FN (False Negative) = 0   → Subur salah diprediksi T.Subur
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<p>Model KNN dengan parameter <span class="math notranslate nohighlight">\(k=41\)</span> (dihitung dari <span class="math notranslate nohighlight">\(\sqrt{1600}\)</span>) berhasil mengklasifikasikan kesuburan tanah dengan performa sempurna:</p>
+<ul class="simple">
+<li><p><strong>Accuracy = 1.0000</strong> → 100% dari 400 data testing diprediksi dengan benar.</p></li>
+<li><p><strong>Precision = 1.0000</strong> → Tidak ada sampel Tidak Subur yang salah diprediksi sebagai Subur (<em>False Positive = 0</em>).</p></li>
+<li><p><strong>Recall = 1.0000</strong> → Tidak ada sampel Subur yang terlewat (<em>False Negative = 0</em>).</p></li>
+<li><p><strong>F1-Score = 1.0000</strong> → Balance sempurna antara Precision dan Recall.</p></li>
+</ul>
+<p>Hal ini menunjukkan bahwa <strong>fitur-fitur agronomis</strong> dalam dataset memiliki pola yang sangat kuat dan dapat dipisahkan dengan jelas oleh algoritma KNN, terutama setelah dilakukan preprocessing yang tepat (imputasi, encoding, dan standardisasi).</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="wknn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">W-KNN</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Analisa Data Kesuburan Tanah</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lakukan-analisis-data-dengan-menggunakan">1. Lakukan analisis data dengan menggunakan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lakukan-pemrosesan-data-tersebut">2. Lakukan Pemrosesan Data tersebut</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitung-metrik-evaluasi">3. Hitung Metrik Evaluasi</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-klasifikasi-kesuburan-tanah">Dataset Klasifikasi Kesuburan Tanah</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-umum">Deskripsi Umum</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi <code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-fitur">Penjelasan Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ph-tanah">1. <code class="docutils literal notranslate"><span class="pre">pH</span> <span class="pre">Tanah</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-total">2. <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">Total</span> <span class="pre">(%)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p-tersedia-ppm">3. <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">Tersedia</span> <span class="pre">(ppm)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-tersedia-meq-100g">4. <code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">Tersedia</span> <span class="pre">(meq/100g)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-organik">5. <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">Organik</span> <span class="pre">(%)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ktk-meq-100g">6. <code class="docutils literal notranslate"><span class="pre">KTK</span> <span class="pre">(meq/100g)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kejenuhan-basa">7. <code class="docutils literal notranslate"><span class="pre">Kejenuhan</span> <span class="pre">Basa</span> <span class="pre">(%)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tekstur-tanah">8. <code class="docutils literal notranslate"><span class="pre">Tekstur</span> <span class="pre">Tanah</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kadar-air">9. <code class="docutils literal notranslate"><span class="pre">Kadar</span> <span class="pre">Air</span> <span class="pre">(%)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bulk-density-g-cm3">10. <code class="docutils literal notranslate"><span class="pre">Bulk</span> <span class="pre">Density</span> <span class="pre">(g/cm³)</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definisi-kelas">Definisi Kelas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas">Distribusi Kelas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-import-library-dan-load-dataset">Langkah 1: Import Library dan Load Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan">Penjelasan:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-pemrosesan-data-preprocessing">Langkah 2: Pemrosesan Data (Preprocessing)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Penjelasan:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-modeling-k-nearest-neighbors-knn">Langkah 3: Modeling K-Nearest Neighbors (KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-algoritma-knn">Penjelasan Algoritma KNN:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penentuan-nilai-k">Penentuan Nilai <span class="math notranslate nohighlight">\(k\)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-evaluasi-model">Langkah 4: Evaluasi Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-metrik">Penjelasan Metrik:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Saiful Rijal
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
