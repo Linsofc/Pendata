@@ -670,16 +670,11 @@ document.write(`
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">confusion_matrix</span>
 
-<span class="c1"># ============================================================</span>
-<span class="c1"># Load Dataset</span>
-<span class="c1"># ============================================================</span>
 <span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;data/kesuburan_tanah.xlsx&#39;</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
 
-<span class="c1"># Hapus kolom ID (hanya nomor urut, tidak relevan untuk prediksi)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">])</span>
 
-<span class="c1"># Tampilkan informasi dasar dataset</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;INFORMASI DATASET&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
@@ -761,50 +756,33 @@ Label                      0
 </div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
-<span class="c1"># A. Pisahkan Fitur (X) dan Target (y), lalu Split Data</span>
-<span class="c1"># ============================================================</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">])</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span>
 
-<span class="c1"># Split 80% training, 20% testing. stratify=y menjaga distribusi kelas</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
 <span class="p">)</span>
 
-<span class="c1"># ============================================================</span>
-<span class="c1"># B. Pemrosesan Fitur NUMERIK</span>
-<span class="c1"># ============================================================</span>
 <span class="n">numeric_cols</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-<span class="c1"># Imputasi nilai hilang dengan Median</span>
 <span class="n">imputer_num</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)</span>
-<span class="n">X_train_num</span> <span class="o">=</span> <span class="n">imputer_num</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>  <span class="c1"># fit + transform pada training</span>
-<span class="n">X_test_num</span>  <span class="o">=</span> <span class="n">imputer_num</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>       <span class="c1"># transform saja pada testing</span>
+<span class="n">X_train_num</span> <span class="o">=</span> <span class="n">imputer_num</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>  
+<span class="n">X_test_num</span>  <span class="o">=</span> <span class="n">imputer_num</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
 
-<span class="c1"># Standarisasi: mean=0, std=1</span>
 <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-<span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_num</span><span class="p">)</span>  <span class="c1"># fit + transform pada training</span>
-<span class="n">X_test_scaled</span>  <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test_num</span><span class="p">)</span>       <span class="c1"># transform saja pada testing</span>
+<span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_num</span><span class="p">)</span> 
+<span class="n">X_test_scaled</span>  <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test_num</span><span class="p">)</span>
 
-<span class="c1"># ============================================================</span>
-<span class="c1"># C. Pemrosesan Fitur KATEGORIKAL (Tekstur Tanah)</span>
-<span class="c1"># ============================================================</span>
 <span class="n">cat_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Tekstur Tanah&#39;</span><span class="p">]</span>
 
-<span class="c1"># Imputasi nilai hilang dengan Modus</span>
 <span class="n">imputer_cat</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;most_frequent&#39;</span><span class="p">)</span>
 <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">imputer_cat</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">cat_cols</span><span class="p">])</span>
 <span class="n">X_test_cat</span>  <span class="o">=</span> <span class="n">imputer_cat</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">cat_cols</span><span class="p">])</span>
 
-<span class="c1"># One-Hot Encoding: ubah kategori teks menjadi kolom biner</span>
 <span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">X_train_encoded</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_cat</span><span class="p">)</span>
 <span class="n">X_test_encoded</span>  <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test_cat</span><span class="p">)</span>
 
-<span class="c1"># ============================================================</span>
-<span class="c1"># D. Gabungkan Semua Fitur</span>
-<span class="c1"># ============================================================</span>
 <span class="n">X_train_final</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">X_train_encoded</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">X_test_final</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X_test_scaled</span><span class="p">,</span>  <span class="n">X_test_encoded</span><span class="p">],</span>  <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
@@ -853,13 +831,9 @@ $<span class="math notranslate nohighlight">\(k = \sqrt{n_{train}}\)</span><span
 di mana \)</span>n_{train}<span class="math notranslate nohighlight">\( adalah jumlah data training. Aturan ini adalah pendekatan statistik yang umum digunakan sebagai titik awal. Nilai \)</span>k$ dibuat ganjil untuk menghindari kondisi seri (<em>tie</em>) dalam proses voting.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
-<span class="c1"># Menghitung Nilai k Optimal</span>
-<span class="c1"># ============================================================</span>
-<span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train_final</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train_final</span><span class="p">)</span>
 <span class="n">k_value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n_samples</span><span class="p">))</span>
 
-<span class="c1"># Pastikan k bernilai ganjil (menghindari tie dalam voting mayoritas)</span>
 <span class="k">if</span> <span class="n">k_value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="n">k_value</span> <span class="o">+=</span> <span class="mi">1</span>
 
@@ -872,9 +846,6 @@ di mana \)</span>n_{train}<span class="math notranslate nohighlight">\( adalah j
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metrik jarak             : Euclidean (default Minkowski p=2)&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metode voting            : Majority Vote (uniform)&quot;</span><span class="p">)</span>
 
-<span class="c1"># ============================================================</span>
-<span class="c1"># Melatih Model KNN</span>
-<span class="c1"># ============================================================</span>
 <span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k_value</span><span class="p">)</span>
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_final</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
@@ -939,23 +910,14 @@ Model KNN Berhasil Dilatih.
 <p>Matriks 2×2 yang menunjukkan rincian prediksi model untuk setiap kombinasi label aktual vs label prediksi.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
-<span class="c1"># Prediksi pada Data Testing</span>
-<span class="c1"># ============================================================</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_final</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_final</span><span class="p">)</span>
 
-<span class="c1"># ============================================================</span>
-<span class="c1"># Perhitungan Metrik Evaluasi</span>
-<span class="c1"># ============================================================</span>
 <span class="n">accuracy</span>  <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Subur&#39;</span><span class="p">)</span>
 <span class="n">recall</span>    <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Subur&#39;</span><span class="p">)</span>
 <span class="n">f1</span>        <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;Subur&#39;</span><span class="p">)</span>
 <span class="n">cm</span>        <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Subur&#39;</span><span class="p">,</span> <span class="s1">&#39;Tidak Subur&#39;</span><span class="p">])</span>
 
-<span class="c1"># ============================================================</span>
-<span class="c1"># Tampilkan Hasil</span>
-<span class="c1"># ============================================================</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HASIL METRIK EVALUASI MODEL KNN&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
@@ -967,11 +929,10 @@ Model KNN Berhasil Dilatih.
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;F1-Score&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">f1</span><span class="si">:</span><span class="s2">&gt;8.4f</span><span class="si">}</span><span class="s2">   Harmonic mean Precision dan Recall&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
 
-<span class="c1"># Confusion Matrix</span>
-<span class="n">TP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Subur diprediksi Subur</span>
-<span class="n">FN</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Subur diprediksi Tidak Subur</span>
-<span class="n">FP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Tidak Subur diprediksi Subur</span>
-<span class="n">TN</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Tidak Subur diprediksi Tidak Subur</span>
+<span class="n">TP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  
+<span class="n">FN</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  
+<span class="n">FP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  
+<span class="n">TN</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">CONFUSION MATRIX:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
