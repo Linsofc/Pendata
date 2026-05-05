@@ -8,6 +8,7 @@ chapters:
 - file: data-understanding
 - file: wknn
 - file: uts
+- file: naive-bayes
 # - file: data-preparation
 # - file: modelling
 # - file: deployment
