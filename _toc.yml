@@ -9,6 +9,7 @@ chapters:
 - file: wknn
 - file: uts
 - file: naive-bayes
+- file: decision-tree-learner
 # - file: data-preparation
 # - file: modelling
 # - file: deployment
