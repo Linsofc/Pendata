@@ -11,6 +11,7 @@ chapters:
 - file: naive-bayes
 - file: decision-tree-learner
 - file: random-forest
+- file: regresi-linier
 # - file: data-preparation
 # - file: modelling
 # - file: deployment
