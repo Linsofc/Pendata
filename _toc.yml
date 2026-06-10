@@ -13,6 +13,7 @@ chapters:
 - file: random-forest
 - file: regresi-linier
 - file: no2
+- file: skforecast-explainability
 # - file: data-preparation
 # - file: modelling
 # - file: deployment
