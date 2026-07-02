@@ -394,12 +394,18 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mapping-exploratory-data-analysis-eda">2. Data Mapping &amp; Exploratory Data Analysis (EDA)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing-splitting">3. Data Preprocessing &amp; Splitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-modeling-hyperparameter-tuning">4. Pemodelan (Modeling) &amp; Hyperparameter Tuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-modeling-hyperparameter-tuning">4. Pemodelan (Modeling) &amp; Hyperparameter Tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#node-knime">Node Knime</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes-categoricalnb">4.1 Naive Bayes (CategoricalNB)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-knime">Hasil Knime</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-tuned">4.2 Decision Tree (Tuned)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Hasil Knime</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest-tuned">4.3 Random Forest (Tuned)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Hasil Knime</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn-tuned-scaled">4.4 K-Nearest Neighbors (KNN - Tuned &amp; Scaled)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Hasil Knime</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machine-svm-tuned-scaled">4.5 Support Vector Machine (SVM - Tuned &amp; Scaled)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Hasil Knime</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance-random-forest">5. Feature Importance (Random Forest)</a></li>
@@ -1442,6 +1448,10 @@ Data Testing: 29 baris
 </div>
 </div>
 </div>
+</section>
+<section id="node-knime">
+<h2>Node Knime<a class="headerlink" href="#node-knime" title="Link to this heading">#</a></h2>
+<p><img alt="node_knime" src="_images/node_knime1.png" /></p>
 <section id="naive-bayes-categoricalnb">
 <h3>4.1 Naive Bayes (CategoricalNB)<a class="headerlink" href="#naive-bayes-categoricalnb" title="Link to this heading">#</a></h3>
 <p>Model <strong>CategoricalNB</strong> digunakan sebagai pengganti GaussianNB karena seluruh fitur bersifat kategorikal/ordinal, bukan kontinu. CategoricalNB mengestimasi probabilitas bersyarat berdasarkan distribusi kategori, sehingga lebih sesuai untuk data ini.</p>
@@ -1481,6 +1491,10 @@ weighted avg       0.05      0.14      0.08        29
 <img alt="_images/11a1a33a2327797f22d989e7d1c6420c440ee35ca97677c3b032114fb5ca7ad9.png" src="_images/11a1a33a2327797f22d989e7d1c6420c440ee35ca97677c3b032114fb5ca7ad9.png" />
 </div>
 </div>
+</section>
+<section id="hasil-knime">
+<h3>Hasil Knime<a class="headerlink" href="#hasil-knime" title="Link to this heading">#</a></h3>
+<p><img alt="naive_bayes" src="_images/naive_bayes.png" /></p>
 </section>
 <section id="decision-tree-tuned">
 <h3>4.2 Decision Tree (Tuned)<a class="headerlink" href="#decision-tree-tuned" title="Link to this heading">#</a></h3>
@@ -2188,6 +2202,10 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 });
 </script></body></div></div>
 </div>
+</section>
+<section id="id1">
+<h3>Hasil Knime<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><img alt="tree" src="_images/tree.png" /></p>
 </section>
 <section id="random-forest-tuned">
 <h3>4.3 Random Forest (Tuned)<a class="headerlink" href="#random-forest-tuned" title="Link to this heading">#</a></h3>
@@ -2956,6 +2974,10 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </script></body></div></div>
 </div>
 </section>
+<section id="id2">
+<h3>Hasil Knime<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><img alt="random_forest" src="_images/random_forest.png" /></p>
+</section>
 <section id="k-nearest-neighbors-knn-tuned-scaled">
 <h3>4.4 K-Nearest Neighbors (KNN - Tuned &amp; Scaled)<a class="headerlink" href="#k-nearest-neighbors-knn-tuned-scaled" title="Link to this heading">#</a></h3>
 <p>Model KNN membutuhkan data terskala (<code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code>) agar perhitungan jarak Euclidean adil. Kita tuning jumlah tetangga (<code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>).</p>
@@ -3611,6 +3633,10 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 });
 </script></body></div></div>
 </div>
+</section>
+<section id="id3">
+<h3>Hasil Knime<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p><img alt="knn" src="_images/knn.png" /></p>
 </section>
 <section id="support-vector-machine-svm-tuned-scaled">
 <h3>4.5 Support Vector Machine (SVM - Tuned &amp; Scaled)<a class="headerlink" href="#support-vector-machine-svm-tuned-scaled" title="Link to this heading">#</a></h3>
@@ -4339,6 +4365,10 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </script></body></div></div>
 </div>
 </section>
+<section id="id4">
+<h3>Hasil Knime<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p><img alt="svm" src="_images/svm.png" /></p>
+</section>
 </section>
 <section id="feature-importance-random-forest">
 <h2>5. Feature Importance (Random Forest)<a class="headerlink" href="#feature-importance-random-forest" title="Link to this heading">#</a></h2>
@@ -4629,12 +4659,18 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mapping-exploratory-data-analysis-eda">2. Data Mapping &amp; Exploratory Data Analysis (EDA)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing-splitting">3. Data Preprocessing &amp; Splitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-modeling-hyperparameter-tuning">4. Pemodelan (Modeling) &amp; Hyperparameter Tuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-modeling-hyperparameter-tuning">4. Pemodelan (Modeling) &amp; Hyperparameter Tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#node-knime">Node Knime</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes-categoricalnb">4.1 Naive Bayes (CategoricalNB)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-knime">Hasil Knime</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-tuned">4.2 Decision Tree (Tuned)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Hasil Knime</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest-tuned">4.3 Random Forest (Tuned)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Hasil Knime</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn-tuned-scaled">4.4 K-Nearest Neighbors (KNN - Tuned &amp; Scaled)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Hasil Knime</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-machine-svm-tuned-scaled">4.5 Support Vector Machine (SVM - Tuned &amp; Scaled)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Hasil Knime</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-importance-random-forest">5. Feature Importance (Random Forest)</a></li>
